@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux命令，文本处理," />
 
 
 
@@ -93,12 +93,40 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Growing">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta name="keywords" content="linux命令，文本处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grep">
+<meta property="og:url" content="http://yoursite.com/2017/07/08/Grep/index.html">
 <meta property="og:site_name" content="Growing">
+<meta property="og:description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta property="og:image" content="http://yoursite.com/images/grep/1.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/2.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/3.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/4.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/4-1.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/5.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/6.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/7.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/8.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/9.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/10.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/11.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/12.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/13.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/14.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/15.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/16.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/17.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/18.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/19.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/20.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/21.png">
+<meta property="og:updated_time" content="2017-07-09T13:58:14.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Growing">
+<meta name="twitter:title" content="grep">
+<meta name="twitter:description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta name="twitter:image" content="http://yoursite.com/images/grep/1.png">
 
 
 
@@ -126,13 +154,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/08/Grep/"/>
 
 
 
 
 
-  <title>Growing</title>
+  <title>grep | Growing</title>
   
 
 
@@ -157,9 +185,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -242,9 +268,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,9 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/08/Grep/" itemprop="url">grep</a></h1>
+          <h1 class="post-title" itemprop="name headline">grep</h1>
         
 
         <div class="post-meta">
@@ -341,9 +365,7 @@
       
 
       
-        
-          
-            <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。</p>
+        <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。</p>
 <h2 id="GREP命令"><a href="#GREP命令" class="headerlink" title="GREP命令"></a>GREP命令</h2><h3 id="Grep命令的由来"><a href="#Grep命令的由来" class="headerlink" title="Grep命令的由来"></a>Grep命令的由来</h3><p>　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需要在ex的命令提示符后键入：<br>　　:/pattern/p<br>　　字符”p”表示打印命令，所以包含字符串pattern的第一行的内容会被打印出来。如果希望打印所有包含pattern的行，可以输入：<br>　　:/g/pattern/p<br>　　当g出现在pattern前面时，其含义是“文件中打所有行”，或“执行全局替换”。<br>　　被查找的模式称作正则表达私（regular expression）,因此我们可以用RE来替换pattern,于是上面这条命令就变成了：<br>　　:g/RE/p<br>　　说到这，您就应该清楚grep的含义和它的名称的来源了。它表示“全局查找正则表达式并且打印结果行。”使用grep的好处在于，不需要启动编辑器，就可以执行查找操作，也不用把正则表达式括在正斜杠里。使用grep比不使用ex或vi快的多。</p>
 <h3 id="Grep命令格式"><a href="#Grep命令格式" class="headerlink" title="Grep命令格式"></a>Grep命令格式</h3><p>　　grep命令在一个或多个文件中查找某个字符串模式。如果这个模式中包含空格，就必须用引号把它括起来。在这里我的建议是，使用grep命令时，都把模式用单引号或双引号括起来，不然可能会产生不想要的效果。后面我们会举例。位于模式之后的所有单词都被视为文件名。grep将输出发送到屏幕，它不会对输入文件进行任何修改或变化。<br>　　grep word file1 file2<br>　　grep程序的输入可以来自管道，而不仅仅是文件。例如：<br>　　ps -ef | grep root<br>　　什么是管道，后面会有文章单独介绍，这里不再单独介绍。下面通过样例来观察grep命令的用法。grep命令中的正则表达式，需要朋友们自己学习了。想要用好grep、sed、awk命令，正则表达式的熟练使用是必不可少的，需要朋友们多多练习！</p>
 <h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><p>　　命令１，目的：找到文件datafile中包含正则表达式NW的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep NW datafile</div></pre></td></tr></table></figure></p>
@@ -397,162 +419,72 @@
 <p>　　?是egrep的扩展元字符，表示匹配零个或一个前导字符
 　　</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YongHui Lv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Growing">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/18/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T11:15:24+08:00">
-                2017-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/linux命令，文本处理/" rel="tag"># linux命令，文本处理</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/18/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -560,6 +492,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -579,8 +515,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -642,6 +587,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GREP命令"><span class="nav-number">2.</span> <span class="nav-text">GREP命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Grep命令的由来"><span class="nav-number">2.1.</span> <span class="nav-text">Grep命令的由来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grep命令格式"><span class="nav-number">2.2.</span> <span class="nav-text">Grep命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样例"><span class="nav-number">2.3.</span> <span class="nav-text">样例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -762,10 +723,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
