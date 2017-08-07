@@ -146,7 +146,14 @@
 <meta property="og:image" content="http://yoursite.com/images/awk/39.png">
 <meta property="og:image" content="http://yoursite.com/images/awk/40.png">
 <meta property="og:image" content="http://yoursite.com/images/awk/41.png">
-<meta property="og:updated_time" content="2017-08-06T15:31:47.559Z">
+<meta property="og:image" content="http://yoursite.com/images/awk/42.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/43.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/44.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/45.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/45_1.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/45_2.png">
+<meta property="og:image" content="http://yoursite.com/images/awk/45_3.png">
+<meta property="og:updated_time" content="2017-08-07T05:30:11.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awk">
 <meta name="twitter:description" content="主题简介　　前面我已经介绍了grep、sed的用法，今天我们来讲另一个重量级的工具awk。只所以说它重量级，是因为它本身是一种unix变成语言，功能非常强大。awk是３个姓氏的首字母，但表创建３种语言的３位作者：Alfred Aho、Brian Kernighan和Peter Weinberger。当然也可以叫它wak或kaw,但常用的是awk。nawk是awk的新版本，gawk是基于linux的">
@@ -485,14 +492,13 @@
 <p>　　输入输出：<br><img src="/images/awk/40.png" alt=""> 　　　<br>　　int为取整函数，rand为随机数函数，srand为rand生成一个种子，使得每次rand产生的随机数不同。<br>　　<br>命令４１，目的：自定义函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f sorter.sc grades</div></pre></td></tr></table></figure></p>
 <p>　　输入输出：<br><img src="/images/awk/41.png" alt=""> 　　　
 　　</p>
-<p>　　
-　　
-　　
-　　
-　　
-　　
-　　
-　　
+<h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><p>命令４２，目的：处理没有分隔符但是字段长度固定的文本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">awk <span class="string">'&#123;printf substr($0, 1, 6)" "; printf substr($0, 7, 6)" "; \</span></div><div class="line">print substr($0, 13, length)" "&#125;' fixed</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/awk/42.png" alt=""> 　<br>　　<strong>注意printf的用法，print默认会换行。</strong><br>　　<br>命令４３，目的：<strong>计算总花费</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -F: <span class="string">'&#123;gsub(/\$/,""); gsub(/,/, ""); count+=$7;&#125; END&#123;print "The total is $" count&#125;'</span> vendor</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/awk/43.png" alt=""> 　<br>　　因为花费这一行存在美元符号$与逗号，因此需要先把这两个符号删除。用空字符串替换这两个元素即可。<br>　　<br>命令４４，目的：处理字段分割符为换行，记录分隔符为空的文本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk <span class="string">'BEGIN&#123;FS="\n"; RS=""; OFS="\t"; ORS="\n\n"&#125;&#123;print $1, $2, $3, $4&#125;'</span> checkbook</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/awk/44.png" alt=""> 　<br>　　<strong>改变格式的输出只能一个字段一个字段输出，不能直接输出一条记录，否则，格式没变。注意这里记录分隔符不是回车，而是空</strong>　　<br>　　<br>命令４５，目的：生成格式信函<br>　　<strong>在此实验之前，先来观察下awk中getline的使用情况。先来看下图的输出效果。</strong><br><img src="/images/awk/45.png" alt=""><br><img src="/images/awk/45_1.png" alt=""> 　　<br>　　由上图可知，awk中的getline命令会改变对应的NF，NR，FNR和$0等内部变量。从别的文件读取数据时，$0的值会存储getline读取的值。下面是新的实验。</p>
+<p>目的：处理字段分割符为换行，记录分隔符为空的文本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk <span class="string">'BEGIN&#123;FS="\n"; RS=""; OFS="\t"; ORS="\n\n"&#125;&#123;print $1, $2, $3, $4&#125;'</span> checkbook</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/awk/45_2.png" alt=""> 　<br><img src="/images/awk/45_3.png" alt=""> 　</p>
+<p>到此，常用的awk命令就讲完了。篇幅比较长，也可以感受到awk命令的强大功能。<br>同时，grep、sed、awk的讲解也完成了。要想用好这三个命令，并不是一件容易的事，需要大量的、长期的不断练习。但是，能够熟练使用这三个命令，可以让你在操作linux或unix操作系统时如鱼得水。共同加油，朋友们！
 　　
 　　
 　　
@@ -560,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/08/Grep/" rel="next" title="grep">
-                <i class="fa fa-chevron-left"></i> grep
+              <a href="/2017/07/22/Sed/" rel="next" title="sed">
+                <i class="fa fa-chevron-left"></i> sed
               </a>
             
           </div>
@@ -699,7 +705,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK命令格式"><span class="nav-number">2.</span> <span class="nav-text">AWK命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范例"><span class="nav-number">3.</span> <span class="nav-text">范例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打印：格式化输出"><span class="nav-number">3.1.</span> <span class="nav-text">打印：格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行文件中的命令"><span class="nav-number">3.2.</span> <span class="nav-text">执行文件中的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段分割符"><span class="nav-number">3.3.</span> <span class="nav-text">字段分割符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式"><span class="nav-number">3.4.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">3.5.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向与管道"><span class="nav-number">3.6.</span> <span class="nav-text">重定向与管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制语句"><span class="nav-number">3.7.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">3.8.</span> <span class="nav-text">数组</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK命令格式"><span class="nav-number">2.</span> <span class="nav-text">AWK命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范例"><span class="nav-number">3.</span> <span class="nav-text">范例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打印：格式化输出"><span class="nav-number">3.1.</span> <span class="nav-text">打印：格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行文件中的命令"><span class="nav-number">3.2.</span> <span class="nav-text">执行文件中的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段分割符"><span class="nav-number">3.3.</span> <span class="nav-text">字段分割符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式"><span class="nav-number">3.4.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">3.5.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向与管道"><span class="nav-number">3.6.</span> <span class="nav-text">重定向与管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制语句"><span class="nav-number">3.7.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">3.8.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杂项"><span class="nav-number">3.9.</span> <span class="nav-text">杂项</span></a></li></ol></li></ol></div>
             
 
           </div>
