@@ -1,0 +1,988 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux命令，文本处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="主题简介　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。需要强调的是，Sed工具没有破坏性，">
+<meta name="keywords" content="linux命令，文本处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sed">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/Sed/index.html">
+<meta property="og:site_name" content="Growing">
+<meta property="og:description" content="主题简介　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。需要强调的是，Sed工具没有破坏性，">
+<meta property="og:image" content="http://yoursite.com/images/sed/1.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/2.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/3.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/4.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/5.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/6.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/7.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/8.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/9.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/8-1.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/10.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/11.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/12.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/13.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/14.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/15.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/16.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/17.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/18.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/19.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/20.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/21.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/22.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/23.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/24.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/25.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/26.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/27.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/28.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/29.png">
+<meta property="og:image" content="http://yoursite.com/images/sed/30.png">
+<meta property="og:updated_time" content="2017-08-07T05:41:17.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sed">
+<meta name="twitter:description" content="主题简介　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。需要强调的是，Sed工具没有破坏性，">
+<meta name="twitter:image" content="http://yoursite.com/images/sed/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/22/Sed/"/>
+
+
+
+
+
+  <title>sed | Growing</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Growing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/Sed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YongHui Lv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Growing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sed</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T00:00:00+05:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/22/Sed/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/22/Sed/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/07/22/Sed/" class="leancloud_visitors" data-flag-title="sed">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。<strong>需要强调的是，Sed工具没有破坏性，它并不会修改文件，屏幕上看到的结果是修改后的结果，但原文件并没有变。</strong></p>
+<h2 id="Sed常用命令格式"><a href="#Sed常用命令格式" class="headerlink" title="Sed常用命令格式"></a>Sed常用命令格式</h2><p>　　查找命令格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'/RE/p'</span> filename</div></pre></td></tr></table></figure></p>
+<p>　　默认情况下，,sed 命令会将所有行都打印到屏幕。如果只需要打印与正则表达式匹配的行，则需要加-n选项，这个选项的功能是取消默认输出。<br>　　替换命令格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'s/RE/replacement string/'</span> filename</div></pre></td></tr></table></figure></p>
+<p>　　s表示用一个字符串代替另一个字符串，需要注意的是，<strong>s命令放在前面，而p(打印)命令放在后面</strong><br>　　定址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'1,3d'</span> filename</div><div class="line">sed -n <span class="string">'/[Jj]ohn/p'</span> filename</div></pre></td></tr></table></figure></p>
+<p>　　定址用于决定对那些行进行编辑（包括打印）。地址的形式可以是数字、正则表达式或二者的结合。如果没有指定地址，sed将处理输入文件中的所有行。如果指定的地址是一个数字，则这个数字代表行号。<strong>‘$’可以用来指代输入文件的最后一行</strong>。如果给出的是逗号分割的两个行号，那么需要处理的地址就是这两行之间的范围（包括这两行）。范围可以是数字、正则表达式或二者的组合。<br>　　sed命令告诉sed对指定行进行何种操作，包括打印、删除、修改等。</p>
+<h2 id="返回状态值"><a href="#返回状态值" class="headerlink" title="返回状态值"></a>返回状态值</h2><p>　　grep与sed一个不同之处在于，如果在文件中找到指定的模式，grep将返回退出状态为０，如果没有找到，就返回１。sed不一样，不管是否找到指定模式，它的退出状态都是０。只有当命令存在语法错误时，sed的退出状态才不是０。
+　　</p>
+<h2 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h2><h3 id="打印：p命令"><a href="#打印：p命令" class="headerlink" title="打印：p命令"></a>打印：p命令</h3><p>　　命令１，目的：找到文件datafile中包含north的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'/north/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/1.png" alt=""> 　　<br>　　由上图可以看出，<strong>如果不加-n选项，sed会把所有输入行都打印到标准输出上</strong>。如果某一行匹配到模式north,sed将把该行另外打印一遍。</p>
+<h3 id="删除：d命令"><a href="#删除：d命令" class="headerlink" title="删除：d命令"></a>删除：d命令</h3><p>　　命令２，目的：删除datafile第三行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'3d'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/2.png" alt=""> 　　<br>　　删除第三行，默认情况下，其余行都被打印到屏幕上。<br>　　　　<br>　　命令３，目的：删除datafile第三行到最后一行的内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'3,$d'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/3.png" alt=""> 　　<br>　　<br>　　命令４，目的：删除datafile最后一行的内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'$d'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/4.png" alt=""> 　　<br>　　<br>　　命令５，目的：删除包含模式north的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/north/d'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/5.png" alt=""> 　
+　　</p>
+<h3 id="替换：s命令"><a href="#替换：s命令" class="headerlink" title="替换：s命令"></a>替换：s命令</h3><p>　　命令6，目的：将datafile 中的３全部替换为*<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'s/3/*/g'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/6.png" alt=""> 　　<br>　　命令末端的g标志表示在行内进行全局替换。<strong>如果没有g标志，则只将每一行的第一个3替换为*。　</strong><br>　　<br>　　命令７，目的：将datafile 中以west开头的行，替换行首的west为north，并打印此行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'s/^west/north/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/7.png" alt=""> 　　<br>　　选项-n与命令末尾的标志p配合，告诉sed只打印那些发生替换的行。<br>　　<br>　　命令８，目的：将datafile 中以两位数结尾的行后面都加上.5<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'s/[0-9][0-9]$/&amp;.5/'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/8.png" alt=""> 　　<br>　　<strong>当’&amp;’用在替换串中时，它代表在查找串中匹配到的内容。</strong><br>　　<br>　　命令９，目的：将datafile 中Margot替换为Marianne<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'s/\(Mar\)got/\1ianne/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/9.png" alt=""> 　　<br>　　包含在圆括号里的模式Mar作为标签１存在特定的寄存器中。替换串可以通过\1引用它。所以命令８也可以通过这种方式来实现。如下图：<br><img src="/images/sed/8-1.png" alt=""> 　<br>　　<br>　　命令10，目的：将datafile中的３都替换为88<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'s#3#88#g'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/10.png" alt=""> 　　<br>　　可以看到，并非只有’\’可以用来作为分隔符，紧跟在s命令后的字符（换行符，反斜杠除外）就是查找串与替换串的分隔符。这个方法在查找包含正斜杠的模式时很管用，例如查找路径名或生日。
+　　</p>
+<h3 id="指定行的范围：逗号"><a href="#指定行的范围：逗号" class="headerlink" title="指定行的范围：逗号"></a>指定行的范围：逗号</h3><p>　　命令11，目的：打印在datafile中在模式west和east之间的所有行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'/west/,/east/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/11.png" alt=""> 　　<br>　　由图可以看出，此命令打印的是出现第一个west模式的行与之后出现的第一个east模式的行之间的所有行。如果文件末尾也未出现要找的模式，则打印开始模式的行之后的所有行。<br>　　<br>　　命令12，目的：打印在datafile中第五行到第一个以north开头的行之间的所有行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'5,/^north/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/12.png" alt=""> 　　<br>　　<br>　　命令13，目的：修改从模式east和west之间的所有行，将各行的行尾替换为字符串<strong>VACA</strong>。换行符被移到这个新的字符串后面<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'5,/^north/p'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/13.png" alt=""> 　　<br>　　<br>　　<strong>注意此命令的格式。</strong></p>
+<h3 id="多重编辑：e命令"><a href="#多重编辑：e命令" class="headerlink" title="多重编辑：e命令"></a>多重编辑：e命令</h3><p>　　命令14，目的：删除１-３行，并将Henmenway替换为Jones。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -e <span class="string">'1,3d'</span> -e <span class="string">'s/Hemenway/Jones/'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/14.png" alt=""> 　　<br>　　多重编辑会将每个编辑逐个应用在每一行上，也就是说，sed取到一行后，会对这一行应用每个编辑任务，完事之后，再取下一行。</p>
+<p>###　读文件：r命令<br>　　命令15，目的：在datafile中包含模式Suan的行后读入文件newfile1的内容。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/Suan/r newfile1'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/15.png" alt=""> 　　<br>　　多重编辑会将每个编辑逐个应用在每一行上，也就是说，sed取到一行后，会对这一行应用每个编辑任务，完事之后，再取下一行。　　</p>
+<h3 id="写文件：w命令"><a href="#写文件：w命令" class="headerlink" title="写文件：w命令　　　　"></a>写文件：w命令　　　　</h3><p>　　命令16，目的：在datafile中包含模式Suan的行后读入文件newfile1的内容。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'/north/w northfile'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/16.png" alt=""> 　　<br>　　w命令将指定行写入文件。<strong>需要注意的是，读命令是将其他文件读入当前文件，而写命令是将当前文件的匹配行写到其他文件。</strong>重定向命令也可以实现相同的目标。比如上面的命令可以用以下命令代替：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="string">'/north/p'</span> datafile &gt; northfile</div></pre></td></tr></table></figure></p>
+<h3 id="追加：a命令"><a href="#追加：a命令" class="headerlink" title="追加：a命令　　　　"></a>追加：a命令　　　　</h3><p>　　命令17，目的：在datafile中找到以’north\t’开头的行,在这一行后加入提示信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/^north        /a ---&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;---'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/17.png" alt=""> 　　<br>　　<strong>在这一命令中需要注意的是，north后不是空格，而是tab键，在命令中敲入tab键的方法是Ctrl+v+i。</strong>另外如果提示信息比较长，需要另外起多行，记得在每行的末尾加入’\’,最后一行不用，以提示sed命令的单引号并未在同一行。
+　　</p>
+<h3 id="插入：i命令"><a href="#插入：i命令" class="headerlink" title="插入：i命令　　　　"></a>插入：i命令　　　　</h3><p>　　命令18，目的：在datafile中找到以’eastern’开头的行,在这一行前插入提示信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/eastern/i \</span></div><div class="line">NEW ENGLAND REGION \</div><div class="line">--------------------------- \</div><div class="line">---------------------------' datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/18.png" alt=""> 　　<br>　　i与a命令类似，一个在模式行之前插入，一个在模式行之后追加。　　</p>
+<h3 id="修改：c命令"><a href="#修改：c命令" class="headerlink" title="修改：c命令　　　　"></a>修改：c命令　　　　</h3><p>　　命令19，目的：在datafile中找到以’eastern’开头的行,修改该行信息为’THE EASTERN REGION HAS BEEN TEMPORARITY CLOSED’<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/eastern/ c \</span></div><div class="line">THE EASTERN REGION HAS BEEN TEMPORARITY CLOSED' datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/19.png" alt=""> 　　<br>　　正如前面所说，命令不会对原文本造成修改。只是屏幕上的输出是修改过的结果。　</p>
+<h3 id="获取下一行：n命令"><a href="#获取下一行：n命令" class="headerlink" title="获取下一行：n命令　　　　"></a>获取下一行：n命令　　　　</h3><p>　　命令20，目的：在datafile中找到以’eastern’开头的下一行，如果这一行中存在AM,则将其替换为Archie<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/eastern/&#123;n; s/AM/Archie/; &#125;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/20.png" alt=""> 　　<br>　　注意命令格式，多条命令放在{}中，以;分割多条命令,最后一条命令后的;可有可无</p>
+<h3 id="转换：y命令"><a href="#转换：y命令" class="headerlink" title="转换：y命令　　　　"></a>转换：y命令　　　　</h3><p>　　命令21，目的：将datafile中的前三行中所有小写字母转换为大写字母。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'1,3y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/21.png" alt=""> 　　<br>　　正则表达式元字符对y命令不起作用。
+　　</p>
+<h3 id="退出：q命令"><a href="#退出：q命令" class="headerlink" title="退出：q命令　　　　"></a>退出：q命令　　　　</h3><p>　　命令22，目的：输出datafile中的前５行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'5q'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/22.png" alt=""> 　　<br>　　所以，输出所有行的命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'$q'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>命令23，目的：在datafile中，在某行匹配到Lewis时，先用Joseph替换Lewis，然后退出sed命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed <span class="string">'/Lewis/&#123;s/Lewis/Joseph/; q&#125;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/23.png" alt=""> 　　<br>　　正则表达式元字符对y命令不起作用。
+　　</p>
+<h3 id="暂存和取用：h命令和g命令"><a href="#暂存和取用：h命令和g命令" class="headerlink" title="暂存和取用：h命令和g命令　　　"></a>暂存和取用：h命令和g命令　　　</h3><p>　　命令24，目的：将datafile中包含WE的行移到最后一行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -e <span class="string">'/WE/&#123;h; d&#125;'</span> -e <span class="string">'$G'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/24.png" alt=""> 　　<br>　　h命令表示暂存，g或G命令表示取用。sed命令中存在两个缓冲区，一个模式缓冲区，一个暂存缓冲区。每次sed从文件中读取一行，并放到模式缓冲区进行处理。h命令将一行从模式缓冲区发送到暂存缓冲区，随后通过g或G命令获取。<strong>g与G的不同在于，取用暂存缓冲区的内容时，g是覆盖当前模式缓冲区中的内容，而G是追加在当前模式缓冲区的行后面。</strong></p>
+<p>　　命令25，目的：将datafile中包含NO的行替换为包含SW的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -e <span class="string">'/SW/h'</span> -e <span class="string">'/NO/g'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/25.png" alt=""> 　　
+　　</p>
+<h3 id="暂存和互换：h命令和x命令"><a href="#暂存和互换：h命令和x命令" class="headerlink" title="暂存和互换：h命令和x命令　"></a>暂存和互换：h命令和x命令　</h3><p>　　命令26，目的：将datafile中包含Margot的行替换为包含Lewis的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -e <span class="string">'/Lewis/h'</span> -e <span class="string">'/Margot/x'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/sed/26.png" alt=""> 　<br>　　x命令用于，将暂存缓冲区中的内容与模式缓冲区中的内容进行互换。产生的效果与g一致，但两者之间还是存在区别。</p>
+<h3 id="sed脚本范例"><a href="#sed脚本范例" class="headerlink" title="sed脚本范例"></a>sed脚本范例</h3><p>　　范例１：脚本如下：<br><img src="/images/sed/27.png" alt=""> 　　<br>执行命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -f sedding1 datafile</div></pre></td></tr></table></figure></p>
+<p>　输入输出：<br><img src="/images/sed/28.png" alt=""> 　<br>　　脚本中分别用了a、c、i、d命令，分别为追加、修改、插入、删除命令，签名脚本中都有讲解，不再赘述。<br>　　<br>　　范例２：脚本如下：<br><img src="/images/sed/29.png" alt=""> 　　<br>执行命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -f sedding2 datafile</div></pre></td></tr></table></figure></p>
+<p>　输入输出：<br><img src="/images/sed/30.png" alt=""> 　<br>　　脚本的含义为，删除western到southeast之间的空行，并缓存包含模式Suan的行，用包含模式Suan的行覆盖包含模式Ann的行，将TB Savage替换为Thomas Savage。</p>
+<p>　　
+　　</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.jpg" alt="YongHui Lv WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux命令，文本处理/" rel="tag"># linux命令，文本处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/08/Grep/" rel="next" title="grep">
+                <i class="fa fa-chevron-left"></i> grep
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/05/awk/" rel="prev" title="awk">
+                awk <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="YongHui Lv" />
+          <p class="site-author-name" itemprop="name">YongHui Lv</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sed常用命令格式"><span class="nav-number">2.</span> <span class="nav-text">Sed常用命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回状态值"><span class="nav-number">3.</span> <span class="nav-text">返回状态值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范例"><span class="nav-number">4.</span> <span class="nav-text">范例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打印：p命令"><span class="nav-number">4.1.</span> <span class="nav-text">打印：p命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除：d命令"><span class="nav-number">4.2.</span> <span class="nav-text">删除：d命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换：s命令"><span class="nav-number">4.3.</span> <span class="nav-text">替换：s命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定行的范围：逗号"><span class="nav-number">4.4.</span> <span class="nav-text">指定行的范围：逗号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重编辑：e命令"><span class="nav-number">4.5.</span> <span class="nav-text">多重编辑：e命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写文件：w命令"><span class="nav-number">4.6.</span> <span class="nav-text">写文件：w命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#追加：a命令"><span class="nav-number">4.7.</span> <span class="nav-text">追加：a命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入：i命令"><span class="nav-number">4.8.</span> <span class="nav-text">插入：i命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改：c命令"><span class="nav-number">4.9.</span> <span class="nav-text">修改：c命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取下一行：n命令"><span class="nav-number">4.10.</span> <span class="nav-text">获取下一行：n命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换：y命令"><span class="nav-number">4.11.</span> <span class="nav-text">转换：y命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出：q命令"><span class="nav-number">4.12.</span> <span class="nav-text">退出：q命令　　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂存和取用：h命令和g命令"><span class="nav-number">4.13.</span> <span class="nav-text">暂存和取用：h命令和g命令　　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂存和互换：h命令和x命令"><span class="nav-number">4.14.</span> <span class="nav-text">暂存和互换：h命令和x命令　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed脚本范例"><span class="nav-number">4.15.</span> <span class="nav-text">sed脚本范例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YongHui Lv</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt6H4B5v';
+      var conf = 'f8e41e5bebe77208b9e670440203aee0';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("JexJm4ve76qL6miPre11XCB1-gzGzoHsz", "5IrEVCgemj4xamwSvdO1bi6m");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

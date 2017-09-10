@@ -1,0 +1,967 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux命令，文本处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta name="keywords" content="linux命令，文本处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grep">
+<meta property="og:url" content="http://yoursite.com/2017/07/08/Grep/index.html">
+<meta property="og:site_name" content="Growing">
+<meta property="og:description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta property="og:image" content="http://yoursite.com/images/grep/1.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/2.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/3.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/4.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/4-1.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/5.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/6.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/7.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/8.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/9.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/10.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/11.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/12.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/13.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/14.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/15.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/16.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/17.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/18.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/19.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/20.png">
+<meta property="og:image" content="http://yoursite.com/images/grep/21.png">
+<meta property="og:updated_time" content="2017-08-05T02:03:29.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="grep">
+<meta name="twitter:description" content="主题简介　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。 GREP命令Grep命令的由来　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需">
+<meta name="twitter:image" content="http://yoursite.com/images/grep/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/08/Grep/"/>
+
+
+
+
+
+  <title>grep | Growing</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Growing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/08/Grep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YongHui Lv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Growing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">grep</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T00:00:00+05:00">
+                2017-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/08/Grep/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/08/Grep/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/07/08/Grep/" class="leancloud_visitors" data-flag-title="grep">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　linux中有三个常用的文本处理工具：grep、sed、awk，个人感觉他们就像倚天剑、屠龙刀、玄铁剑一样的江湖利器。是否熟练使用这三个工具，是检验你linux功力的试金石。因为内容比较多，我用三篇文章来分别讲述这三个工具的常见使用方式。这篇文章首先来讲述grep命令。</p>
+<h2 id="GREP命令"><a href="#GREP命令" class="headerlink" title="GREP命令"></a>GREP命令</h2><h3 id="Grep命令的由来"><a href="#Grep命令的由来" class="headerlink" title="Grep命令的由来"></a>Grep命令的由来</h3><p>　　grep这个名字的由来可以追溯到ex编辑器。如果启动ex编辑器来查找某个字符串，需要在ex的命令提示符后键入：<br>　　:/pattern/p<br>　　字符”p”表示打印命令，所以包含字符串pattern的第一行的内容会被打印出来。如果希望打印所有包含pattern的行，可以输入：<br>　　:/g/pattern/p<br>　　当g出现在pattern前面时，其含义是“文件中打所有行”，或“执行全局替换”。<br>　　被查找的模式称作正则表达私（regular expression）,因此我们可以用RE来替换pattern,于是上面这条命令就变成了：<br>　　:g/RE/p<br>　　说到这，您就应该清楚grep的含义和它的名称的来源了。它表示“全局查找正则表达式并且打印结果行。”使用grep的好处在于，不需要启动编辑器，就可以执行查找操作，也不用把正则表达式括在正斜杠里。使用grep比不使用ex或vi快的多。</p>
+<h3 id="Grep命令格式"><a href="#Grep命令格式" class="headerlink" title="Grep命令格式"></a>Grep命令格式</h3><p>　　grep命令在一个或多个文件中查找某个字符串模式。如果这个模式中包含空格，就必须用引号把它括起来。在这里我的建议是，使用grep命令时，都把模式用单引号或双引号括起来，不然可能会产生不想要的效果。后面我们会举例。位于模式之后的所有单词都被视为文件名。grep将输出发送到屏幕，它不会对输入文件进行任何修改或变化。<br>　　grep word file1 file2<br>　　grep程序的输入可以来自管道，而不仅仅是文件。例如：<br>　　ps -ef | grep root<br>　　什么是管道，后面会有文章单独介绍，这里不再单独介绍。下面通过样例来观察grep命令的用法。grep命令中的正则表达式，需要朋友们自己学习了。想要用好grep、sed、awk命令，正则表达式的熟练使用是必不可少的，需要朋友们多多练习！</p>
+<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><p>　　命令１，目的：找到文件datafile中包含正则表达式NW的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep NW datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/1.png" alt=""> </p>
+<p>　　命令２，目的：找出所有以d开头的文件中，包含NW的所有行;找出所有文件中，包含NW的所有行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">grep NW d*　　　　　<span class="comment">##打印所有以d开头的文件中，包含NW的所有行</span></div><div class="line">grep NW *　　　　　  <span class="comment">##打印所有文件中，包含NW的所有行</span></div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/2.png" alt=""><br>　　<br>　　命令3，目的：在datafile中找出所有以n开头的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'^n'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/3.png" alt=""> </p>
+<p>　　命令4，目的：在db中找出所有以3结尾的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'3$'</span> db</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/4.png" alt=""> </p>
+<p>　　可以看到，结果并不是预期的结果。因为在db中的确存在以３结尾的行，但命令４并没有打印出任何东西。原因是db是一个每行以CRLF结尾打文件，可以通过file命令看到，在这种文件中，行尾标志符$无效。因此，需要用dos2unix命令将文件转化一下。转化后再执行命令４，结果如下：<br>　　<img src="/images/grep/4-1.png" alt=""> </p>
+<p>　　命令5，目的：在datafile中找出所有包含’5.’字符串的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'5\.'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/5.png" alt=""> </p>
+<p>　　命令６，目的：在datafile中找出所有以w或e开头的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'^[we]'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/6.png" alt=""> </p>
+<p>　　命令７，目的：在datafile中找出所有包含非数字字符的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'[^0-9]'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/7.png" alt=""> </p>
+<p>　　命令８，目的：在datafile中找出所有包含一个s、后跟０个或多个连着的s和一个空格的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'ss* '</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/8.png" alt=""> </p>
+<p>　　命令９，目的：在datafile中找出所有包含至少九个连着的小写字母的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'[a-z]\&#123;9,\&#125;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/9.png" alt=""> </p>
+<p>　　放在｛n｝中的n表示前面字符或字符组的重复次数</p>
+<p>　　命令10，目的：在datafile中找出所有这样的行：包含一个３后面跟一个.和数字，再多任意多个字符，然后再跟一个３和任意多个制表符，再接一个３<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'3.[0-9].*3    *3'</span> datafile</div><div class="line">grep <span class="string">'\(3\).[0-9].*\1       *\1'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/10.png" alt=""> </p>
+<p>　　(s) 放在圆括号中的字符串　后面可以用\1、\2指代</p>
+<p>　　命令11，目的：在datafile中找出所有包含以north开头的单词的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'\&lt;north'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/11.png" alt=""> </p>
+<p>　　‘&lt;’与’&gt;’分别是单词首和单词尾标识符</p>
+<p>　　命令12，目的：在datafile中找出所有包含单词north的行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'\&lt;north\&gt;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/12.png" alt=""> </p>
+<p>　　‘&lt;’与’&gt;’分别是单词首和单词尾标识符</p>
+<p>　　命令13，目的：在datafile中找出所有这样的行：包含以小写字母开头，以n结尾，中间包含任意多个字符组成的单词的行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">'\&lt;[a-z].*n\&gt;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/13.png" alt=""> </p>
+<p>　　这个例子主要注意虽然包含词首和词尾标识符，但查找的字符串并非一个单词，因为里面.*为任意字符，包含空格。<br>　　<br>　　命令14，目的：在datafile中找出所有包含pat的行，不区分大小写<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep  -i <span class="string">'pat'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/14.png" alt=""> </p>
+<p>　　-i选项关闭大小写敏感</p>
+<p>　　命令15，目的：在datafile中找出所有不包含pat的行，不区分大小写<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -iv <span class="string">'pat'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/15.png" alt=""> </p>
+<p>　　-v选项搜索不包含模式的行</p>
+<p>　　命令16，目的：在当前目录下搜索包含pat的文件，不区分大小写，只输出文件名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -il <span class="string">'pat'</span> *</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/16.png" alt=""> </p>
+<p>　　-l选项使grep只输出包含模式的文件名，而不输出文本行。<br>　　<br>　　命令17，目的：在datafile中搜索west,只打印包含west的行数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -c <span class="string">'west'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/17.png" alt=""> </p>
+<p>　　-c选项使grep只打印包含模式的行的数目，这个数字不代表模式出现的次数。即使某行中west出现了３次，这行也只计一次。<br>　　<br>　　命令18，目的：在datafile中搜索包含变量NAME的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">"<span class="variable">$NAME</span>"</span> datafile</div><div class="line">grep <span class="variable">$NAME</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/18.png" alt=""> </p>
+<p>　　可以看出，grep、echo不会对单引号的变量展开,因此在包含变量的命令中，请使用双引号或者不使用引号。<br>　　<br>　　命令19，目的：在datafile中搜索包含单词north的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">grep -w <span class="string">'north'</span> datafile</div><div class="line">grep <span class="string">'\&lt;north\&gt;'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/19.png" alt=""> </p>
+<p>　　-w选项使grep只查找作为一个词，而不是词的一部分出现的模式。这里所说的词是指一个字母或数字字符序列，它始于行首或紧跟在空白符后，以空白符、标点或换行符结束。<br>　　<br>　　命令20，目的：在datafile中搜索包含单词NW或者EA的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">egrep <span class="string">'NW|EA'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/20.png" alt=""> </p>
+<p>　　|是egrep的扩展元字符，a|b表示匹配a或者b<br>　<br>　　命令21，目的：在datafile中搜索这样的行：包含２，后面跟零个或一个句点，再跟一个数字<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">egrep <span class="string">'2\.?[0-9]'</span> datafile</div></pre></td></tr></table></figure></p>
+<p>　　输入输出：<br><img src="/images/grep/21.png" alt=""> </p>
+<p>　　?是egrep的扩展元字符，表示匹配零个或一个前导字符
+　　</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.jpg" alt="YongHui Lv WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux命令，文本处理/" rel="tag"># linux命令，文本处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/22/Sed/" rel="prev" title="sed">
+                sed <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="YongHui Lv" />
+          <p class="site-author-name" itemprop="name">YongHui Lv</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GREP命令"><span class="nav-number">2.</span> <span class="nav-text">GREP命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Grep命令的由来"><span class="nav-number">2.1.</span> <span class="nav-text">Grep命令的由来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grep命令格式"><span class="nav-number">2.2.</span> <span class="nav-text">Grep命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样例"><span class="nav-number">2.3.</span> <span class="nav-text">样例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YongHui Lv</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt6H4B5v';
+      var conf = 'f8e41e5bebe77208b9e670440203aee0';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("JexJm4ve76qL6miPre11XCB1-gzGzoHsz", "5IrEVCgemj4xamwSvdO1bi6m");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
