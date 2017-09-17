@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/09/17/sso3/</loc>
+    <lastmod>2017-09-17T04:03:46.212Z</lastmod>
+    <data>
+        <display>
+        <title>使用CAS搭建单点登录站点（三）</title>
+        <pubTime>2017-09-16T19:00:00.000Z</pubTime>
+        
+        <tag>cas，单点登录</tag>
+         
+        <tag>rest</tag>
+         
+         
+           
+             
+              <breadCrumb title="sso" url="http://yoursite.com/categories/sso/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/09/10/sso2/</loc>
     <lastmod>2017-09-10T09:49:36.490Z</lastmod>
     <data>

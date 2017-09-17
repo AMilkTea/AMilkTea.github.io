@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="cas，单点登录," />
+  <meta name="keywords" content="cas，单点登录,rest," />
 
 
 
@@ -93,26 +93,28 @@
 
 
 
-<meta name="description" content="主题简介　　很多大公司不止存在一个应用系统，比如像阿里巴巴的天猫、淘宝、阿里旅行，百度的新闻、贴吧、音乐，腾讯的视频、新闻，网易的新闻、音乐等等。但是，如果你仔细观察，这些不同的应用其实是共享了登录的，即用户在一个应用登录后，再使用这家公司的其他应用时，是处在登录状态的。从架构的角度来讲，这些公司的不同应用之间就是通过单点登录技术来实现了登录共享。通过实现单点登录，可以具有如下优点：　　1. 方便">
-<meta name="keywords" content="cas，单点登录">
+<meta name="description" content="主题简介　　上一篇博文主要讲述了如何搭建https协议的CAS站点，并拓展讲述了如何通过X509方式进行认证。这篇文章主要讲述另外一种认证方式－rest认证方式。CAS对于每一种认证方式，都有相关的文档去介绍，如下图：　　但是，对于初次接触这方面相关知识的朋友，仅仅阅读CAS的文档，可能还是会有点似懂非懂，这篇文章的目的就是通过手把手的方式，去更详细的讲解Rest认证的实现步骤。不过，还是非常推荐">
+<meta name="keywords" content="cas，单点登录,rest">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用CAS搭建单点登录站点（一）">
-<meta property="og:url" content="http://yoursite.com/2017/09/09/sso1/index.html">
+<meta property="og:title" content="使用CAS搭建单点登录站点（三）">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/sso3/index.html">
 <meta property="og:site_name" content="Growing">
-<meta property="og:description" content="主题简介　　很多大公司不止存在一个应用系统，比如像阿里巴巴的天猫、淘宝、阿里旅行，百度的新闻、贴吧、音乐，腾讯的视频、新闻，网易的新闻、音乐等等。但是，如果你仔细观察，这些不同的应用其实是共享了登录的，即用户在一个应用登录后，再使用这家公司的其他应用时，是处在登录状态的。从架构的角度来讲，这些公司的不同应用之间就是通过单点登录技术来实现了登录共享。通过实现单点登录，可以具有如下优点：　　1. 方便">
-<meta property="og:image" content="http://yoursite.com/images/cas/1.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/2.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/3.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/4.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/5.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/6.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/7.png">
-<meta property="og:image" content="http://yoursite.com/images/cas/8.png">
-<meta property="og:updated_time" content="2017-09-09T15:54:39.629Z">
+<meta property="og:description" content="主题简介　　上一篇博文主要讲述了如何搭建https协议的CAS站点，并拓展讲述了如何通过X509方式进行认证。这篇文章主要讲述另外一种认证方式－rest认证方式。CAS对于每一种认证方式，都有相关的文档去介绍，如下图：　　但是，对于初次接触这方面相关知识的朋友，仅仅阅读CAS的文档，可能还是会有点似懂非懂，这篇文章的目的就是通过手把手的方式，去更详细的讲解Rest认证的实现步骤。不过，还是非常推荐">
+<meta property="og:image" content="http://yoursite.com/images/cas/25.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/26.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/27.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/28.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/29.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/30.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/31.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/32.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/33.png">
+<meta property="og:image" content="http://yoursite.com/images/cas/34.png">
+<meta property="og:updated_time" content="2017-09-17T04:03:46.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用CAS搭建单点登录站点（一）">
-<meta name="twitter:description" content="主题简介　　很多大公司不止存在一个应用系统，比如像阿里巴巴的天猫、淘宝、阿里旅行，百度的新闻、贴吧、音乐，腾讯的视频、新闻，网易的新闻、音乐等等。但是，如果你仔细观察，这些不同的应用其实是共享了登录的，即用户在一个应用登录后，再使用这家公司的其他应用时，是处在登录状态的。从架构的角度来讲，这些公司的不同应用之间就是通过单点登录技术来实现了登录共享。通过实现单点登录，可以具有如下优点：　　1. 方便">
-<meta name="twitter:image" content="http://yoursite.com/images/cas/1.png">
+<meta name="twitter:title" content="使用CAS搭建单点登录站点（三）">
+<meta name="twitter:description" content="主题简介　　上一篇博文主要讲述了如何搭建https协议的CAS站点，并拓展讲述了如何通过X509方式进行认证。这篇文章主要讲述另外一种认证方式－rest认证方式。CAS对于每一种认证方式，都有相关的文档去介绍，如下图：　　但是，对于初次接触这方面相关知识的朋友，仅仅阅读CAS的文档，可能还是会有点似懂非懂，这篇文章的目的就是通过手把手的方式，去更详细的讲解Rest认证的实现步骤。不过，还是非常推荐">
+<meta name="twitter:image" content="http://yoursite.com/images/cas/25.png">
 
 
 
@@ -140,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/09/sso1/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/17/sso3/"/>
 
 
 
 
 
-  <title>使用CAS搭建单点登录站点（一） | Growing</title>
+  <title>使用CAS搭建单点登录站点（三） | Growing</title>
   
 
 
@@ -267,7 +269,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/sso1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/sso3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YongHui Lv">
@@ -284,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用CAS搭建单点登录站点（一）</h1>
+          <h1 class="post-title" itemprop="name headline">使用CAS搭建单点登录站点（三）</h1>
         
 
         <div class="post-meta">
@@ -296,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T00:00:00+05:00">
-                2017-09-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T00:00:00+05:00">
+                2017-09-17
               </time>
             
 
@@ -338,8 +340,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/09/09/sso1/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/09/sso1/" itemprop="commentsCount"></span>
+                <a href="/2017/09/17/sso3/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/17/sso3/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -347,7 +349,7 @@
 
           
           
-             <span id="/2017/09/09/sso1/" class="leancloud_visitors" data-flag-title="使用CAS搭建单点登录站点（一）">
+             <span id="/2017/09/17/sso3/" class="leancloud_visitors" data-flag-title="使用CAS搭建单点登录站点（三）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,24 +377,11 @@
       
 
       
-        <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　很多大公司不止存在一个应用系统，比如像阿里巴巴的天猫、淘宝、阿里旅行，百度的新闻、贴吧、音乐，腾讯的视频、新闻，网易的新闻、音乐等等。但是，如果你仔细观察，这些不同的应用其实是共享了登录的，即用户在一个应用登录后，再使用这家公司的其他应用时，是处在登录状态的。从架构的角度来讲，这些公司的不同应用之间就是通过单点登录技术来实现了登录共享。通过实现单点登录，可以具有如下优点：<br>　　1. 方便客户注册，如果每个应用都需要独立注册，对用户来讲并不友好<br>　　2. 方便用户访问，登录一次便可以访问多个应用，对用户来讲访问多个应用就行访问一个应用一样简单、透明<br>　　3. 对企业来讲，实现了用户信息的统一管理、共享，新应用无需单独获客,无需自己单独开发与登录相关的模块<br>　　单点登录存在多种实现方案，现在最流行的一种实现方案是CAS。CAS 是中央认证服务Central Authentication Service 的简称，最初由耶鲁大学的Shawn Bayern 开发，后由Jasig 社区维护，经过十多年发展，目前已成为影响最大、广泛使用的、基于Java 实现的、开源SSO 解决方案。<br>　　2012 年，Jasig 和另一个有影响的组织Sakai Foundation 合并，组成Apereo。 Apereo 是一个由高等学术教育机构发起组织的联盟，旨在为学术教育机构提供高质量软体，当然很多软体也被大量应用于商业环境，譬如CAS。 目前CAS 由Apereo 社区维护。<br>　　CAS目前的更新速度还是蛮快的，三个月前我看的时候5.１.0正式版还没有发布，现在github上的最新版已经变成了５.2.0.RC2了。我主要基于５.1.3版来介绍CAS的使用，后续版本的使用如果有差异，可以自己探索。</p>
-<h2 id="我的实验环境"><a href="#我的实验环境" class="headerlink" title="我的实验环境"></a>我的实验环境</h2><p>　　jdk:1.8.0_101<br>　　IDE:idea 2016<br>　　操作系统：ubuntu 16.04<br>　　服务器容器：Tomcat9.0.0.M26</p>
-<h2 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h2><p>　　CAS由４.2.0之后，打包与持续集成工具由maven迁移到了gradle。而５.0之后，可以看出最显著的变化是项目的框架由之前的spring MVC与spring web flow变成了以spring boot、spring cloud、thymeleaf为基础，项目的结构越来越清晰，繁杂的xml配置也由spring boot自动配置取代，视图也变成了spring boot推荐的themeleaf来完成。CAS支持各种认证方式，比如基于文件的、数据库的、内存的用户名密码的方式，还支持证书认证等各种认证方式。后续我们可以逐一深入了解。</p>
-<h2 id="搭建最简单的CAS服务端"><a href="#搭建最简单的CAS服务端" class="headerlink" title="搭建最简单的CAS服务端　　"></a>搭建最简单的CAS服务端　　</h2><h3 id="几个地址"><a href="#几个地址" class="headerlink" title="几个地址"></a>几个地址</h3><p>　　１. apereo在github上代码托管的地址：<a href="https://github.com/apereo" target="_blank" rel="external">apereo</a><br>　　２. cas主分支：<a href="https://github.com/apereo/cas" target="_blank" rel="external">CAS</a><br>　　３. cas开发模板：<a href="https://github.com/apereo/cas-gradle-overlay-template" target="_blank" rel="external">cas-gradle-overlay-template</a> 
-　　</p>
-<h3 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h3><p>　　第一步，当然是需要搭建开发环境了。需要安装JDK、maven、gradle、git等等。因为这些工具的安装过程网上都有很多资料，我就不细说了。<br>　　第二步，我们需要下载cas开发模板cas-gradle-overlay-template。在CAS的主页里面，关于部署有下面的建议：<br><img src="/images/cas/1.png" alt=""> 　<br>　　意思是假如我们不需要修改源码的话，就不必下载CAS的项目代码。这时就需要用到我们在上面提到的cas-gradle-overlay-template项目，通过在项目里面使用CAS内部提供的一个web模块，并覆盖相关的配置、资源、图片、class文件、css、js文件等，实现自己的定制化服务。<br>通过如下命令下载cas-gradle-overlay-template项目：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/apereo/cas-gradle-overlay-template.git</div></pre></td></tr></table></figure></p>
-<p><img src="/images/cas/2.png" alt=""> </p>
-<p>　　第三步，用idea导入项目，下载依赖jar包，clean、build后生成war包。<br>　　第四步，将cas/build/libs文件夹下面的cas.war包拷贝到tomcat的webapps文件夹下，路径如下图：<br><img src="/images/cas/3.png" alt=""><br>　　第五步，启动tomcat，如下所示：<br><img src="/images/cas/4.png" alt=""><br>　　完成上面五步之后，我们就可以在浏览器正常访问cas程序了。如下图：<br><img src="/images/cas/5.png" alt=""><br>　　以cas配置文件中默认配置的用户名密码casuser/Mellon来登录网站，可以正常登录。<br><img src="/images/cas/6.png" alt=""> </p>
-<p>　　但是，查看tomcat启动过程，可以发现有异常抛出，如下图：<br><img src="/images/cas/7.png" alt=""><br>　　这是因为，启动程序没有权限在/etc下创建文件夹，我们可以手动创建/etc/cas/logs，如下图：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo mkdir -p /etc/cas/logs</div><div class="line">sudo chown -R yonghuilv:yonghuilv /etc/cas</div></pre></td></tr></table></figure></p>
-<p><img src="/images/cas/8.png" alt=""> 　　<br>　　需要注意的是，<strong>创建完文件夹后需要修改文件夹的用户组与用户，变为当前用户组与用户</strong>。再次重新启动tomcat就不再报错。<br>　　<br>　　这篇文章讲述了如何使用CAS搭建最简单的单点登录站点服务器。这里并未修改任何代码与配置。这种方式只能用作demo展示，实践中无法通过这种方式完成任务，因为这种默认配置下，站点登录凭证信息即用户名密码存在内存中，实际应用中需要持久化到数据库中。另外，连接也是http连接，不是https连接。接下来，我还会通过几篇文章来讲述如何搭建https站点，如何配置数据库认证方式、Ｘ509方式、Ｒest方式等实际应用中用到的配置方式。
-　　
-　　
-　　
-　　
-　　
-　　
-　　
-　　</p>
+        <h2 id="主题简介"><a href="#主题简介" class="headerlink" title="主题简介"></a>主题简介</h2><p>　　上一篇博文主要讲述了如何搭建https协议的CAS站点，并拓展讲述了如何通过X509方式进行认证。这篇文章主要讲述另外一种认证方式－rest认证方式。CAS对于每一种认证方式，都有相关的文档去介绍，如下图：<br><img src="/images/cas/25.png" alt=""><br>　　但是，对于初次接触这方面相关知识的朋友，仅仅阅读CAS的文档，可能还是会有点似懂非懂，这篇文章的目的就是通过手把手的方式，去更详细的讲解Rest认证的实现步骤。不过，还是非常推荐读者朋友，去详细认真的阅读官方文档，因为官方文档才是最权威的文档，尤其是随着版本的变化，可能部署方式也有可能发生一些细微的变化，本人的文档只是在官方文档的基础之上提供更详细的指导。</p>
+<h2 id="开始实验"><a href="#开始实验" class="headerlink" title="开始实验"></a>开始实验</h2><p>　　第一步，在cas/build.gradle中添加’cas-server-support-rest-authentication’模块的依赖。如下图：<br><img src="/images/cas/26.png" alt=""> 　　<br>　　第二步，构建项目后，利用’gradle explodeWar’命令解压war包。在cas/build/目录下就会生成cas目录。如下图：<br><img src="/images/cas/27.png" alt=""><br><img src="/images/cas/28.png" alt=""><br>    第三步，在cas/main/文件夹下新建resources文件夹，并将上一步生成的cas/WEB-INF/classes/文件下的application.properties文件拷贝到新建的resources目录下。目录结构如下：<br><img src="/images/cas/29.png" alt=""><br>　　第四步，修改cas/main/resources/目录下的application.properties文件，在文件末尾添加对rest认证的相关配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">##</div><div class="line">#REST Authentication</div><div class="line">##</div><div class="line">cas.authn.rest.uri=http://localhost:8081/auth</div></pre></td></tr></table></figure></p>
+<p><img src="/images/cas/30.png" alt=""><br>　　第五步，需要新建一个Rest认证的端点。可以通过另外新建一个新项目来实现。我新建了一个spring boot的项目，并在<a href="rest端点">http://localhost:8081/auth</a> 端点实现了认证过程。这个项目的源代码我放到了github上，地址为：<a href="rest项目">https://github.com/AMilkTea/restauthentication</a>  。需要的朋友可以通过命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/AMilkTea/restauthentication.git</div></pre></td></tr></table></figure></p>
+<p>来获取代码。在这个项目中，我主要通过h2内存数据库模拟了rest端点访问后台数据库的过程。在这个项目中，我添加了如下测试用户：<br><img src="/images/cas/31.png" alt=""><br>　　后续，如果我们能够使用上图添加的用户名密码登录到cas系统，而其他用户则不能登录到系统，则表明实验成功。另外，有两点需要注意，通过抓包，我们可以看到，cas的rest认证模块，在发送rest认证请求时，认证信息是放在了http的header里面进行传输的。如下图：<br><img src="/images/cas/32.png" alt=""> 　　<br>　　header里面的头字段名为Authorization。因此，在rest端点中，我们获取认证信息的方式，是在方法中添加（@RequestHeader(“Authorization”)）注解来获取用户名密码。另外，可以看出在传输之前，cas做了一些处理。通过查看相关源码，我发现，用户名密码是经过base64编码后传输的，因此在rest端需要先解码。实现代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value = &#123;<span class="string">"/"</span>, <span class="string">"/auth"</span>&#125;, method = RequestMethod.POST)</div><div class="line">    <span class="keyword">public</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt; jdbcAuth(<span class="meta">@RequestHeader</span>(<span class="string">"Authorization"</span>) String auth)&#123;</div><div class="line">        LOG.info(<span class="string">"jdbcAuth is invoked, The auth is "</span> + auth);</div><div class="line">        String info = auth.substring(<span class="number">6</span>);</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            String s = <span class="keyword">new</span> String(Base64.getDecoder().decode(info), <span class="string">"US-ASCII"</span>);</div><div class="line"></div><div class="line">            String[] array = s.split(<span class="string">":"</span>);</div><div class="line">            String name = array[<span class="number">0</span>];</div><div class="line">            String password = array[<span class="number">1</span>];</div><div class="line"></div><div class="line">            User user = authRepository.queryUserCount(name, password);</div><div class="line">            Map&lt;String, Object&gt; model = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">            Map&lt;String, Object&gt; attributes = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">            <span class="keyword">if</span>(user != <span class="keyword">null</span>)&#123;</div><div class="line">                System.out.println(<span class="string">"name:"</span> + name);</div><div class="line">                System.out.println(<span class="string">"password:"</span> + password);</div><div class="line">                model.put(<span class="string">"@class"</span>, <span class="string">"org.apereo.cas.authentication.principal.SimplePrincipal"</span>);</div><div class="line">                model.put(<span class="string">"id"</span>, name);</div><div class="line"></div><div class="line">                attributes.put(<span class="string">"password"</span>, password);</div><div class="line"></div><div class="line">                model.put(<span class="string">"attributes"</span>, attributes);</div><div class="line"></div><div class="line">                System.out.println(model);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(model, HttpStatus.OK);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(model, HttpStatus.NOT_FOUND);</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            System.out.print(e.getMessage());</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>　　attributes可以添加更多主体信息，也可以为空，根据需要添加。但是model中的@class和id属性是必须的。‘String info = auth.substring(6);’这句话的含义是cas端在传输用户名密码的base64编码之前，加入了‘Basic ’字符串，解码之前需要先去掉这六个字符。在抓包中我们可以看到这几个字符的存在。<br>　　第六步，修改tomcat配置文件server.xml,将上一节中通过x509方式认证的属性关掉，否则，cas会直接通过x509方式认证成功。如下图所示：<br><img src="/images/cas/33.png" alt=""> 　<br>　　将clientAuth属性置为false。或者将浏览器中的客户端证书删除都可以使x509认证失败，从而让cas走rest认证的方式。<br>　　第七步，启动tomcat,启动rest端点项目，即可通过rest项目中提供的用户名密码进行登录。从而实现了rest认证的方式。登录正确时，我们可以看到上面代码打印出的登录用户名与密码。如下图所示：<br><img src="/images/cas/34.png" alt=""> 　<br>    至此，我们的实验就结束了。希望可以通过这篇文章，减少你们在部署cas的rest认证方式过程中所走的弯路。下一篇我主要讲解cas中auth认证的相关知识，感兴趣的读者朋友可以继续阅读。</p>
 
       
     </div>
@@ -440,6 +429,8 @@
           
             <a href="/tags/cas，单点登录/" rel="tag"># cas，单点登录</a>
           
+            <a href="/tags/rest/" rel="tag"># rest</a>
+          
         </div>
       
 
@@ -451,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/03/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/09/10/sso2/" rel="next" title="使用CAS搭建单点登录站点（二）">
+                <i class="fa fa-chevron-left"></i> 使用CAS搭建单点登录站点（二）
               </a>
             
           </div>
@@ -460,10 +451,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/10/sso2/" rel="prev" title="使用CAS搭建单点登录站点（二）">
-                使用CAS搭建单点登录站点（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -594,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我的实验环境"><span class="nav-number">2.</span> <span class="nav-text">我的实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本变化"><span class="nav-number">3.</span> <span class="nav-text">版本变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建最简单的CAS服务端"><span class="nav-number">4.</span> <span class="nav-text">搭建最简单的CAS服务端　　</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几个地址"><span class="nav-number">4.1.</span> <span class="nav-text">几个地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始搭建"><span class="nav-number">4.2.</span> <span class="nav-text">开始搭建</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题简介"><span class="nav-number">1.</span> <span class="nav-text">主题简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始实验"><span class="nav-number">2.</span> <span class="nav-text">开始实验</span></a></li></ol></div>
             
 
           </div>
