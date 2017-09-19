@@ -97,67 +97,67 @@
 <meta name="keywords" content="linux命令，文本处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="awk">
-<meta property="og:url" content="http://yoursite.com/2017/08/05/awk/index.html">
+<meta property="og:url" content="http://www.lvyonghui.com/2017/08/05/awk/index.html">
 <meta property="og:site_name" content="Growing">
 <meta property="og:description" content="主题简介　　前面我已经介绍了grep、sed的用法，今天我们来讲另一个重量级的工具awk。只所以说它重量级，是因为它本身是一种unix变成语言，功能非常强大。awk是３个姓氏的首字母，但表创建３种语言的３位作者：Alfred Aho、Brian Kernighan和Peter Weinberger。当然也可以叫它wak或kaw,但常用的是awk。nawk是awk的新版本，gawk是基于linux的">
-<meta property="og:image" content="http://yoursite.com/images/awk/1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/2.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/2_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/3.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/3_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/4.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/5.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/6.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/7.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/8.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/10.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/11.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/11_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/12.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/13.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/14.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/15.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/16.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/17.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/18.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/19.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/20.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/21.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/22.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/23.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/23_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/24.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/25.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/26.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/27.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/27_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/27_2.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/28.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/29.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/30.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/31.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/32.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/33.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/34.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/35.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/36.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/37.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/38.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/39.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/40.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/41.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/42.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/43.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/44.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/45.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/45_1.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/45_2.png">
-<meta property="og:image" content="http://yoursite.com/images/awk/45_3.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/2.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/2_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/3.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/3_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/4.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/5.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/6.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/7.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/8.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/10.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/11.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/11_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/12.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/13.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/14.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/15.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/16.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/17.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/18.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/19.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/20.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/21.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/22.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/23.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/23_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/24.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/25.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/26.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/27.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/27_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/27_2.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/28.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/29.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/30.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/31.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/32.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/33.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/34.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/35.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/36.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/37.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/38.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/39.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/40.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/41.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/42.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/43.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/44.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/45.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/45_1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/45_2.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/awk/45_3.png">
 <meta property="og:updated_time" content="2017-08-07T05:30:11.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awk">
 <meta name="twitter:description" content="主题简介　　前面我已经介绍了grep、sed的用法，今天我们来讲另一个重量级的工具awk。只所以说它重量级，是因为它本身是一种unix变成语言，功能非常强大。awk是３个姓氏的首字母，但表创建３种语言的３位作者：Alfred Aho、Brian Kernighan和Peter Weinberger。当然也可以叫它wak或kaw,但常用的是awk。nawk是awk的新版本，gawk是基于linux的">
-<meta name="twitter:image" content="http://yoursite.com/images/awk/1.png">
+<meta name="twitter:image" content="http://www.lvyonghui.com/images/awk/1.png">
 
 
 
@@ -185,7 +185,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/05/awk/"/>
+  <link rel="canonical" href="http://www.lvyonghui.com/2017/08/05/awk/"/>
 
 
 
@@ -312,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/awk/">
+    <link itemprop="mainEntityOfPage" href="http://www.lvyonghui.com/2017/08/05/awk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YongHui Lv">
@@ -652,7 +652,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -674,7 +674,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

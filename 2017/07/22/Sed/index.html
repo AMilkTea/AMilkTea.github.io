@@ -97,45 +97,45 @@
 <meta name="keywords" content="linux命令，文本处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sed">
-<meta property="og:url" content="http://yoursite.com/2017/07/22/Sed/index.html">
+<meta property="og:url" content="http://www.lvyonghui.com/2017/07/22/Sed/index.html">
 <meta property="og:site_name" content="Growing">
 <meta property="og:description" content="主题简介　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。需要强调的是，Sed工具没有破坏性，">
-<meta property="og:image" content="http://yoursite.com/images/sed/1.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/2.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/3.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/4.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/5.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/6.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/7.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/8.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/9.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/8-1.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/10.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/11.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/12.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/13.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/14.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/15.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/16.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/17.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/18.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/19.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/20.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/21.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/22.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/23.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/24.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/25.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/26.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/27.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/28.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/29.png">
-<meta property="og:image" content="http://yoursite.com/images/sed/30.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/2.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/3.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/4.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/5.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/6.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/7.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/8.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/9.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/8-1.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/10.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/11.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/12.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/13.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/14.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/15.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/16.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/17.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/18.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/19.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/20.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/21.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/22.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/23.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/24.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/25.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/26.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/27.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/28.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/29.png">
+<meta property="og:image" content="http://www.lvyonghui.com/images/sed/30.png">
 <meta property="og:updated_time" content="2017-08-07T05:41:17.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sed">
 <meta name="twitter:description" content="主题简介　　上一节我介绍了grep的用法，这一节我来介绍Sed的用法。Sed是一种新型的，非交互式的编辑器。它可以执行与编辑器vi相同的编辑任务，但没有提供交互使用方式。后面的学习中，你会发现，使用者只能在命令行输入编辑命令、指定文件名，然后在屏幕上查看输出。Grep虽然强大，但不具备编辑功能。Sed不同的地方在于具备一定的编辑功能。但是编辑功能没有Awk强大。需要强调的是，Sed工具没有破坏性，">
-<meta name="twitter:image" content="http://yoursite.com/images/sed/1.png">
+<meta name="twitter:image" content="http://www.lvyonghui.com/images/sed/1.png">
 
 
 
@@ -163,7 +163,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/22/Sed/"/>
+  <link rel="canonical" href="http://www.lvyonghui.com/2017/07/22/Sed/"/>
 
 
 
@@ -290,7 +290,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/Sed/">
+    <link itemprop="mainEntityOfPage" href="http://www.lvyonghui.com/2017/07/22/Sed/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YongHui Lv">
@@ -603,7 +603,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -625,7 +625,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
